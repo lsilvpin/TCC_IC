@@ -1,5 +1,7 @@
+% Formato do documento
 \documentclass[12pt,twoside]{article}
 
+% Pacotes sendo utilizados
 \usepackage[utf8]{inputenc}
 \usepackage[portuguese]{babel}
 \usepackage[T1]{fontenc}
@@ -30,81 +32,673 @@
 \usepackage{stmaryrd}
 \usepackage{eso-pic}
 
-\usepackage{geometry}
-\geometry{
-    a4paper,
-    left=3cm,
-    right=2cm,
-    top=3cm,
-    bottom=2cm
+% Transforma o sumário em Links de navegação
+\usepackage{hyperref}
+
+% Estilo do sumário
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Sharelatex Example},
+    bookmarks=true,
+    pdfpagemode=FullScreen,
 }
 
-\newtheorem{lema}{Lema}[section]
-\newtheorem{obs}{Observação}[section]
-\newtheorem{teo}{Teorema}[section]
+% Especificações métricas do texto
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	left=3cm,
+	right=3cm,
+	top=2.5cm,
+	bottom=2.5cm
+}
+% Indentação do texto
+\setlength{\parindent}{1.25cm}
 
-\setlength{\parindent}{1.25cm} %Indenta o parágrafo
-
+% Faz o "content" ser mencionado como "Sumário"
 \renewcommand{\contentsname}{Sumário}
 
+% Criando títulos indexados
+\newtheorem{defi}{Definição}[subsection]
+\newtheorem{lema}{Lema}[subsection]
+\newtheorem{obs}{Observação}[subsection]
+\newtheorem{teo}{Teorema}[subsection]
+\newtheorem{cor}[teo]{Corolário}
+
+% Início do conteúdo
 \begin{document}
+  \setstretch{1.5} % Espaçamento entre linhas
+  \pagenumbering{gobble} % Cancela a paginação por enquanto
 
-    \setstretch{1.5} % Espaçamento entre linhas
-    \pagenumbering{gobble}
-    
-    \begin{titlepage}
-        \begin{center}
-            \parbox{3.5cm}{\includegraphics[scale=0.1]{logo_ufu.png}} \\
-            \vspace{1cm}
-            {\Large \bf UNIVERSIDADE FEDERAL DE UBERLÂNDIA}
-            {\large \bf Bacharelado em Matemática} \\
-            \vspace{2cm}
-            {\large Luís Henrique da Silva Pinheiro} \\
-            \vspace{3cm}
-            {\Large \bf Título do trabalho} \\
-            {\large \it subtítulo do trabalho} \\
-            \vspace{8cm}
-            {UBERLÂNDIA \\ Mês e Ano}
-        \end{center}
-    \end{titlepage}
-    
-    \tableofcontents
-    \thispagestyle{empty}
-    \newpage
-    
-    \pagenumbering{arabic}
-    
-    \section{Introdução}
-        \cite{carothers} \cite{cariello}
-        \lipsum[1] \\
-        ------------------------------------------------------------------------------------------------------------------
-        
-        \newpage
-        
-    \section{Desenvolvimento}
-        \lipsum[1]
-        
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[scale=0.5]{funcao_distancia.png}
-            \caption{\it Gráfico da função distância ao inteiro mais próximo}
-            \label{fig:my_label}
-        \end{figure}
-        
-        \lipsum[2] \\
-        ------------------------------------------------------------------------------------------------------------------
-        
-        \newpage
-        
-    \section{Conclusão}
-        \lipsum[1] \\
-        ------------------------------------------------------------------------------------------------------------------
-        
-        \newpage
+  % Capa do trabalho
+  \begin{titlepage}
+    \begin{center}
+      \parbox{3.5cm}{\includegraphics[scale=0.1]{logo_ufu.png}} \\
+      \vspace{1cm}
+      {\Large \bf UNIVERSIDADE FEDERAL DE UBERLÂNDIA}
+      {\large \bf Bacharelado em Matemática} \\
+      \vspace{2cm}
+      {\large \textbf{Aluno bolsista:} Luís Henrique da Silva Pinheiro} \\
+      {\large \textbf{Orientador:} Prof. Dr. Victor Gonzalo Lopez Neumann} \\
+      \vspace{3cm}
+      {\Large \bf Relatório final do trabalho de iniciação científica:} \\
+      {\large \it Elementos primitivos e normais em corpos finitos} \\
+      \vspace{8cm}
+      {UBERLÂNDIA \\ julho de 2020}
+    \end{center}
+  \end{titlepage}
 
-    \pagenumbering{gobble}
-    \bibliographystyle{ieeetr}
-    \bibliography{referencia}
-    \thispagestyle{empty}
+  \tableofcontents % Cria o sumário
+  \thispagestyle{empty} % Retira o estilo padrão do sumário
+  \newpage % Quebra a página
+
+  \pagenumbering{arabic} % Começa a enumerar as páginas
+
+  % Seção: Introdução ao tema
+  \section{Introdução}
+    % Primeiro parágrafo: Introdução ao assunto
+    A teoria dos corpos finitos é um ramo da matemática que veio a tona nos
+    últimos cinquenta anos por causa de suas diversas aplicações em vários segmentos
+    da ciência, entre eles, análise combinatória, teoria dos códigos, criptografia, entre
+    outros. Muitas figuras proeminentes na história da matemática contribuíram para o
+    desenvolvimento desta teoria, entre eles podemos citar: Pierre de Fermat (1601-
+    1665); Leonhard Euler (1707-1783); Joseph-Louis Lagrange (1736-1813); AndrienMarie Legendre (1752-1833); 
+    entre outros. Além disso, segundo R. Lidil e H.
+    Niederreiter, autores de uma das referências que utilizaremos \cite{finite-fields-1997}, tal teoria começou
+    com os trabalhos de Carl Friedrich Gauss (1777-1855) e Evariste Galois (1811-
+    1832), contudo, só veio a se tornar interessante para os matemáticos aplicados nas
+    últimas décadas. \\
+    %------------------------------------------------------------------------------------------------------------------
+    
+    %\newpage % Não está sendo preciso quebrar página aqui
+
+  % Seção: Conceitos principais
+  \section{Conceitos principais}
+    % Segundo parágrafo: Introdução aos conceitos
+    Para que se possa entender melhor este tema, explicaremos aqui mesmo, de
+    forma breve, o significado destes conceitos. Começamos com a definição de corpo
+    finito, este é qualquer coleção finita e não vazia de elementos, munida de duas
+    operações binárias entre esses elementos, uma que se comporta como a adição, e
+    outra que se comporta como a multiplicação, e quando falamos adição e
+    multiplicação estamos nos referindo àquelas definidas entre números reais. Veremos
+    no decorrer do trabalho, por exemplo, que se retirarmos de um corpo finito, o
+    elemento neutro da adição, os elementos que sobram formam um grupo cíclico com
+    a multiplicação, interessante não? Consequentemente, como todo grupo cíclico, ele
+    passa a ter um gerador deste grupo. Ora, estes elementos, geradores destes grupos
+    assim formados, são exatamente o que chamamos de ``elementos primitivos''. Já a
+    definição de ``elemento normal'' é um pouquinho mais elaborada. Primeiro,
+    começamos com um corpo finito de característica p, com q elementos (q é um
+    natural não nulo). Veremos também que p deverá ser um número natural primo, e
+    que o fato de p ser a característica deste corpo implica que a cardinalidade q deverá
+    ser uma potência de p. Levando isso em conta, escolha um natural não nulo n, e
+    considere uma extensão F de grau n do corpo inicial. Da teoria de corpos finitos
+    sabemos que esta extensão é um corpo que contém o primeiro, e que pode ser visto
+    como um espaço vetorial de dimensão n (finita) sobre ele, é para a base deste
+    espaço que olharemos agora. Um elemento x do corpo F é chamado ``elemento normal'' quando o 
+    conjunto $\{ \ x \ , \ x^{q} \ , \ x^{q^{2}} \ , \ ... \ , \ x^{q^{n-1}} \ \}$ é uma base 
+    para este espaço vetorial, estas bases assim formadas são chamadas bases 
+    normais sobre corpos finitos. \\
+    %------------------------------------------------------------------------------------------------------------------
+    
+    %\newpage % Quebra a página
+
+  % Seção: Relevância
+  \section{Relevância}
+    % Primeiro parágrafo: Relevância
+    O interesse de bases normais sobre corpos finitos decorre tanto da
+    curiosidade puramente matemática quanto das aplicações práticas. Com o
+    desenvolvimento da teoria de codificação e o surgimento de vários sistemas
+    criptográficos utilizando corpos finitos, o trabalho nesta área resultou em vários
+    projetos de implementação de hardware's e software's. Estes produtos são
+    baseados em esquemas de multiplicação usando bases normais para representar
+    corpos finitos, assim é necessário desenvolver uma aritmética de corpos finitos para
+    que se possa construir os algorítimos apropriados. É claro que as vantagens de se
+    utilizar uma representação de base normal são conhecidas há muitos anos. A
+    complexidade do desenho de hardware de tais esquemas de multiplicação é
+    fortemente dependente da escolha das bases normais usadas. Por isso, é essencial
+    encontrar bases normais de baixa complexidade. \\
+    %------------------------------------------------------------------------------------------------------------------
+    
+    %\newpage % Quebra a página
+
+  % Seção: Objetivos
+  \section{Objetivos}
+    % Primeiro parágrafo: Objetivos
+    O objetivo por trás deste trabalho é, em primeiro lugar, permitir que o estudante do curso de
+    bacharelado em matemática, inscrito para realizar este trabalho, através de leitura, reflexão, resolução
+    de exercícios, discussão com orientador e produção de texto lógico formal, se aprofunde no
+    desenvolvimento de suas habilidades de pesquisa e autonomia para se tornar mais apto a seguir
+    carreira acadêmica, já que este é seu intento. E em segundo lugar, mas não menos importante, criar
+    um texto matemático que apresente o tema de forma agradável, apresentando um breve esboço da
+    teoria dos corpos finitos, e mostrando como ela pode ser acessível a estudantes a nível de graduação,
+    e como ela pode ser aplicada para tratar de elementos primitivos e normais. Em terceiro lugar, uma
+    vez que o aluno adquira certa maturidade no tema de estudo, possa colaborar nos projetos nos quais
+    o orientador esteja trabalhando no momento.\\
+    %------------------------------------------------------------------------------------------------------------------
+    
+    %\newpage % Quebra a página
+
+  % Seção: Metodologia  
+  \section{Metodologia}
+    % Primeiro parágrafo: Metodologia
+    O aluno estudará a estrutura de corpos finitos, polinômios sobre corpos finitos e somas
+    exponenciais utilizando como referência o texto \cite[Finite fields]{finite-fields-1997} e como livros 
+    de apoio os textos \cite[Abstract algebra]{abstract-algebra-2007} e \cite[Tópicos de álgebra]{topicos-de-algebra-1970}. 
+    O aluno apresentará semanalmente um seminário de uma hora com o material estudado durante a semana.
+    Elementos primitivos e normais serão estudados a partir dos artigos de referências \cite{article-1987}, 
+    \cite{article-2014}, \cite{article-2017} e \cite{article-2018}.
+    Além disso serão realizadas reuniões semanais de uma hora com o orientador para esclarecer dúvidas
+    do aluno. Nos últimos meses da orientação o aluno irá participar dos projetos de pesquisa nos quais
+    o orientador estará trabalhando. Serão também realizadas revisões bibliográficas para acrescentar
+    conhecimentos atualizados. Mensalmente o aluno irá apresentar os resultados básicos a alunos de
+    graduação que estudam temas similares. \\
+    %------------------------------------------------------------------------------------------------------------------
+    
+    %\newpage % Quebra a página
+
+  % Seção: Cronograma  
+  \section{Cronograma}
+    % Lista de capítulos e tópicos
+    \begin{enumerate}
+      \item Estrutura de corpos finitos
+      \begin{description}
+        \item [(a)] Caracterização dos corpos finitos
+        \item [(b)] Raízes de polinômios irredutíveis
+        \item [(c)] Traços, normas e bases
+        \item [(d)] Raízes da unidade e polinômios ciclotômicos
+        \item [(e)] Representação de elementos de corpos finitos
+        \item [(f)] Teorema de Wedderburn
+      \end{description}
+      \item Polinômios sobre corpos finitos
+      \begin{description}
+        \item [(a)] Ordem de polinômios e polinômios primitivos
+        \item [(b)] Polinômios irredutíveis
+        \item [(c)] Construção de polinômios irredutíveis
+        \item [(d)] Polinômios linearizados
+        \item [(e)] Binômios e trinômios
+      \end{description}
+      \item Somas exponenciais
+      \begin{description}
+        \item [(a)] Caracteres
+        \item [(b)] Somas de Gauss
+        \item [(c)] Somas de Jacobi
+        \item [(d)] Soma de caracteres com argumentos polinomiais
+      \end{description}
+      \item Elementos primitivos e normais
+      \begin{description}
+        \item [(a)] Caracterização de elementos primitivos
+        \item [(b)] Número de elementos primitivos em corpos finitos
+        \item [(c)] Ação do anel de polinômios sobre um corpo finito
+        \item [(d)] Caracterização de elementos normais
+        \item [(e)] Número de elementos normais em corpos finitos
+        \item [(f)] Conclusão
+      \end{description}
+    \end{enumerate}
+
+    % Tabela contendo as informações resumidas do cronograma
+    \vspace{0.3cm}
+    \begin{center} % Matem a tabela alinhada ao centro da página
+      \begin{tabular}{ | l | c | c | c | c | r | } % Define o alinhamento e linhas verticais
+        \hline % Linha horizontal
+        Agosto & Setembro & Outubro & Novembro & Dezembro & Janeiro \\
+        \hline % Linha horizontal
+        1. (a)-(c) & 1. (d)-(f) & 2. (a)-(c) & 2. (d),(e) & 3. (a),(b) & 3. (c) \\
+        \hline % Linha horizontal
+        Fevereiro & Março & Abril & Maio & Junho & Julho \\
+        \hline % Linha horizontal
+        3. (d) & 4. (a),(b) & 4. (c) & 4. (d) & 4. (e) & 4. (f) \\
+        \hline % Linha horizontal
+      \end{tabular}
+    \end{center}
+    \vspace{0.3cm}
+    %------------------------------------------------------------------------------------------------------------------
+    
+    %\newpage % Quebra a página
+
+  % Seção: Avanço até aqui  
+  \section{Resultado da Pesquisa de Iniciação Científica}
+    % Parágrafo: Introdução
+    Nesta seção apresento o conteúdo estudado de forma sucinta. Tal texto servirá de base para o texto oficial que constituirá meu trabalho de conclusão de curso, onde verdadeiramente concretizarei os objetivos desta iniciação científica que infelizmente não puderam ser atingidos aqui, por motivos que estão explicados nas considerações finais.
+    
+    % Subseção: Visão Geral
+    \subsection{Visão Geral}
+    
+      % Parágrafo 1: Visão geral
+      A teoria dos polinômios sobre corpos finitos é importante tanto para investigar a estrutura algébrica dos corpos finitos como também para muitas outras aplicações. Na primeira seção desenvolveremos os conceitos básicos da teoria de corpos finitos e as definições principais dos conceitos chaves deste trabalho, elementos primitivos e normais, posteriormente traremos também as demonstrações dos principais resultados que servirão de base para todo o resto do texto. Em seguida trabalharemos com a noção de ordem de um polinômio, e usaremos este conceito para caracterizar polinômios minimais de elementos primitivos como polinômios mônicos irredutíveis da mais alta ordem possível. Na segunda seção mostraremos resultados muito interessantes sobre polinômios irredutíveis sobre corpos finitos como por exemplo, utilizar a inversão de Mobius para deduzir uma fórmula que nos fornece a quantidade de polinômios mônicos irredutíveis sobre um corpo finito de um certo grau dado. E a última parte é dedicada à construtibilidade de polinômios irredutíveis, e neste contexto veremos, por exemplo, como calcular o polinômio minimal de qualquer elemento na extensão fixada. Concluiremos mostrando alguns exemplos de como se pode calcular alguns elementos primitivos. (APÓS TERMINAR O TRABALHO, REESCREVER A VISÃO GERAL)
+      
+    % Subseção: Caracterização de corpos finitos
+    \subsection{Caracterização de corpos finitos}
+    
+      % Parágrafo 1: Resumo desta subseção
+      Sem mais delongas vamos ao que interessa. Como estamos estudando assuntos dentro da teoria de corpos finitos, nosso primeiro dever é definir e caracterizar os conceitos principais desta teoria, e exibir os resultados que necessitaremos para sermos capazes de demonstrar os resultados que constituem o objetivo deste texto, citados na visão geral dada anteriormente. Então vamos lá.
+      
+      % Definição: Corpo
+      \begin{defi}[\textcolor{green}{Corpo}]
+      Um corpo é um conjunto não vazio munido de duas operações, conforme indica a notação $ \ (\mathbb{F}, +, *) \ $, de modo que, uma delas, a representada pelo símbolo $ \ + \ $ é chamada de adição e a outra, representada pelo símbolo $ \ * \ $ é chamada de multiplicação, e para que possamos chamar esta estrutura de corpo, estas duas operações precisam satisfazer as seguintes propriedades:
+      
+      \begin{itemize}
+          \item Adição: +
+          \begin{itemize}
+              \item(Neutro) $ \ \exists 0 \in \mathbb{F} \ tq \ \forall u \in \mathbb{F} \ 0 + u = u \ $
+              \item(Simétrico) $ \ \forall u \in \mathbb{F} \ \exists -u \in \mathbb{F} \ tq \ u + (-u) = 0 \ $
+              \item(Associativa) $ \ \forall u, v, w \in \mathbb{F} \ (u+v)+w = u+(v+w) \ $
+              \item(Comutativa) $ \forall u, v \in \mathbb{F} \ u+v=v+u \ $
+          \end{itemize}
+          \item Multiplicação: $ \ * \ $
+          \begin{itemize}
+              \item(Neutro) $ \ \exists 1 \in \mathbb{F} \ tq \ \forall u \in \mathbb{F} 1*u=u \ $
+              \item(Inverso) $ \ \forall u \in \mathbb{F} \ \exists u^{-1} \ tq \ u*u^{-1}=1 \ $
+              \item(Associativa) $ \ \forall u,v,w \in \mathbb{F} \ (u*v)*w=u*(v*w) \ $
+              \item(Comutativa) $ \ \forall u,v \in \mathbb{F} \ u*v=v*u \ $
+          \end{itemize}
+          \item Juntas devem satisfazer
+          \begin{itemize}
+              \item(Distributiva) $ \ \forall u,v,w \in \mathbb{F} \ u*(v+w)=u*v+u*w \ $ 
+          \end{itemize}
+      \end{itemize}
+      \end{defi}
+      
+      % Definição: Corpo finito
+      \begin{defi}[\textcolor{green}{Corpo Finito}]
+      Um corpo finito é um corpo com uma quantidade finita de elementos. Dado $ \ q \in \mathbb{N} \setminus \{0\} \ $(Conjunto dos números naturais, zero excluso), para representar um corpo com $ \ q \ $ elementos utilizamos a notação $ \ \mathbb{F}_{q} \ $.
+      \end{defi}
+      
+      % Parágrafo: Sumário narrativo
+      Agora vejamos alguns resultados básicos sobre os corpos finitos, tais resultados constituem as noções essenciais que deveremos manter em mente ao longo de todo o texto.
+      
+      % Parágrafo: Sobre a característica
+      Sabemos da teoria de corpos que todo corpo tem uma característica $ \ p \ $, que por sua vez, é zero ou um número natural primo, que está associado ao corpo e a todos os corpos dentro da mesma ``Torre de Corpos'', que começa no subcorpo primo $ \ \mathbb{F}_{p} \ $ e ascende até atingir seu fecho algébrico. Neste texto não explicaremos estes conceitos, consideramos que o leitor já foi exposto ao menos uma vez às teorias de anéis e corpos. Nosso foco nesta seção é trazer as propriedades que dizem respeito aos corpos finitos a partir dos conceitos e resultados básicos sobre corpos em geral. Apenas para efeito de relembrar, a característica de um corpo é definida como sendo a quantidade mínima de vezes que devemos somar a unidade (elemento neutro da multiplicação) do corpo afim de obter zero (elemento neutro da adição). No caso em que esta quantidade não existe, a característica é definida como sendo o $ \ 0 \in \mathbb{N} \ $. Outro ponto de interesse, que vale a pena ser mencionado agora, é sobre a dimensão nas extensões de corpos. Como já dissemos, uma ``Torre de Corpos'' mencionada anteriormente, deve ser vista como uma família de corpos encadeados pela relação de inclusão ($ \ \subseteq \ $), todos possuindo a mesma característica $ \ p \ $, de modo que esta relação vem a ser uma ordem total nesta família, tendo $ \ \mathbb{F}_{p} \ $ como o mínimo dos membros, e o fecho algébrico como o máximo nesta ordem. Quando a característica é zero, o subcorpo primo é o corpo dos números racionais e o fecho algébrico é o corpo dos números complexos, já quando a característica é um número primo $ \ p \ $, o subcorpo primo é $ \ \mathbb{F}_{p} \ $ e o fecho algébrico também existirá normalmente. Mas, não só estão uns contidos em outros, como temos uma estrutura muito mais poderosa, uma vez que, se um corpo está contido em um segundo, o maior (que contém) pode ser visto como um espaço vetorial sobre o menor (que está contido). Novamente, não definiremos aqui noções de álgebra linear, também esperamos que o leitor já tenha familiaridade com esta teoria. Bem, da álgebra linear, sabemos que os espaços vetoriais possuem dimensão, que por sua vez, é a quantidade de vetores que aparece em uma base para o espaço. Assim, dados dois corpos $ \ \mathbb{F} \subseteq \mathbb{E} \ $, podemos ver $ \ \mathbb{E} \ $ como um espaço vetorial sobre $ \ \mathbb{F} \ $, e a dimensão de $ \ \mathbb{E} \ $ sobre $ \ \mathbb{F} \ $ é denotada por $ \ [\mathbb{E} | \mathbb{F}] \ $, que em geral pode nem ser finita. Após esta discussão já podemos enunciar um importante resultado sobre corpos finitos.
+      
+      % Teorema: # elementos dos corpos finitos
+      \begin{teo}[\textcolor{green}{Sobre a quantidade de elementos dos corpos finitos}]
+      Seja $ \ \mathbb{F}_{q} \ $ um corpo finito de característica $ \ p \ $. Então $ \ q = p^{n} \ $ onde $ \ n = [ \mathbb{F}_{q} | \mathbb{F}_{p} ] \ $.
+      \label{QuantidadeElementosCorposFinitos}
+      \end{teo}
+      
+      % Demonstração:
+      \begin{proof}
+      Sejam $ \ \mathbb{K} \subseteq \mathbb{F}_{q} \ $ corpos finitos. Uma vez que o ``maior deles'' é finito, segue obviamente da teoria de corpos que ele deve ser de dimensão finita sobre o primeiro. (Pois o corpo todo já é finito, e a base está contida nele). Seja $ \ n \in \mathbb{N} \ $ a quantidade de vetores em uma dessas bases. Então, há $ \ n \ $ vetores numa base, e todos os elementos de $ \ \mathbb{F}_{q} \ $ são as combinações lineares dos elementos de uma dessas bases com coeficientes provenientes de $ \ \mathbb{K} \ $. Como $ \ \mathbb{K} \ $ também é finito, a quantidade de combinações lineares existente é exatamente $ \ (\#\mathbb{K})^{n} \ $. Consequentemente $ \ q=(\#\mathbb{K})^{n} \ $. Mas, pela discussão que tivemos antes de enunciar este teorema, dado qualquer corpo finito $ \ \mathbb{F}_{q} \ $, ele terá sua característica $ \ p \ $, que é diferente de zero, e será uma extensão de $ \ \mathbb{F}_{p} \ $. Portanto, deverá ocorrer $ \ q = p^{n} \ $ onde $ \ n=[\mathbb{F}_{q} | \mathbb{F}_{p}] \ $.
+      \end{proof}
+      
+      % Discussão: Lema: Sonho dos estudantes
+      Antes de partirmos para o próximo teorema só precisamos de um resultado importante. Gosto de chamar este resultado de ``O Sonho de Todos os Estudantes'' (Não foi invenção minha), pois qualquer aluno que esteja aprendendo a fazer o desenvolvimento do binômio de Newton pela primeira vez, sonharia em poder aplicar a propriedade a seguir.
+      
+      % Lema: O sonho dos estudantes
+      \begin{lema}[\textcolor{green}{O Sonho de Todos os Estudantes}]
+      $ \ \forall a,b \in \mathbb{F}_{q} \ $ temos $ \ (a+b)^{q} = a^{q}+b^{q} \ $.
+      \label{SonhoDosEstudantes}
+      \end{lema}
+      
+      % Demonstração
+      \begin{proof}
+      No desenvolvimento do binômio de Newton $ \ (a+b)^{q} \ $, a primeira parcela é $ \ a^{q} \ $, a última parcela é $ \ b^{q} \ $, e cada uma das demais parcelas, conforme triângulo de Pascal, aparecem uma quantidade de vezes igual a $ \ C_{i}^{q} \ $ (Combinação de $ \ q \ $ tomados $ \ i \ $ a $ \ i \ $) para cada $ \ 1 \leq i \leq q-1 \ $. Ou seja, $ \ C_{i}^{q} \ $ é o coeficiente da $ \ i $-ésima parcela no desenvolvimento do binômio inicial. De análise combinatória e teoria dos números sabemos que $ \ q | C_{i}^{q} \ $. Como $ \ p | q \ $, segue que $ \ p | C_{i}^{q} \ $. Consequentemente, as parcelas do meio desaparecem após filtrarmos pela congruência módulo $ \ p \ $, sobrando apenas as duas parcelas extremas, que ocorrem quando $ \ i \in \{0,q\} \ $.
+      \end{proof}
+      
+      % Discussão: Existência e unicidade
+      A próximo teorema é sobre a existência e unicidade dos corpos finitos, para compreende-lo é preciso lembrar do conceito de corpo de decomposição. Dado um polinômio $ \ p(x) \ $ sobre um corpo $ \ \mathbb{K} \ $, o corpo de decomposição deste polinômio é o ``menor'' corpo na ``torre'' de $ \ \mathbb{K} \ $, relativamente a ordem total $ \ \subseteq \ $ desta família, que contém $ \ \mathbb{K} \ $ e todas as raízes de $ \ p(x) \ $. Lembrando que, da teoria de corpos e da teoria dos polinômios sobre corpos, sabemos que todas as raízes do polinômio $ \ p(x) \ $ pode ser encontrada dentro desta mesma ``torre''. Tal corpo de decomposição existe, é único para cada par $ \ \{\mathbb{K},p(x)\} \ $ e será denotado por $ \ \mathbb{K}(p) \ $.
+      
+      % Lema
+      \begin{lema}[\textcolor{green}{$ \ a \in \mathbb{F}_{q} \implies a^{q}=a \ $}]
+      Se $ \ \mathbb{F} \ $ é um corpo finito com $ \ q \ $ elementos, então para todo $ \ a \in \mathbb{F} \ $ temos que $ \ a^{q}=a \ $.
+      \label{PropriedadeCrucialDosCorposFinitos}
+      \end{lema}
+      
+      % Demonstração
+      \begin{proof}
+      A identidade $ \ a^{q}=a \ $ é trivial para $ \ a=0 \ $. Por outro lado, os elementos não nulos de $ \ \mathbb{F} \ $ formam um grupo de ordem $ \ q-1 \ $ sob a multiplicação. Logo $ \ a^{q-1}=1 \ $ para todo $ \ a \in \mathbb{F} \ $ com $ \ a \neq 0 \ $, e a multiplicação por $ \ a \ $ nos traz o resultado desejado.
+      \end{proof}
+      
+      % Teorema: Existência e unicidade
+      \begin{teo}[\textcolor{green}{Existência e Unicidade dos Corpos Finitos}]
+      Para todo primo $ \ p \ $ e todo inteiro positivo $ \ n \ $ existe um corpo finito com $ \ p^{n} \ $ elementos. E todo corpo finito $ \ \mathbb{F}_{q} \ $ é isomorfo ao corpo de decomposição do polinômio $ \ x^{q}-x \ $ sobre $ \ \mathbb{F}_{p} \ $.
+      \label{ExistenciaEUnicidadeDeCorposFinitos}
+      \end{teo}
+      
+      % Demonstração
+      \begin{proof}
+      % Existência
+      (Existência) Considere $ \ x^{q}-x \in \mathbb{F}_{p}[x] \ $ e $ \ \mathbb{F} := \mathbb{F}_{p}(x^{q}-x) \ $. Como a derivada de $ \ x^{q}-x \ $ é $ \ qx^{q-1}-1=-1 \in \mathbb{F}_{p}[x] \ $, todas as raízes de $ \ x^{q}-x \ $ têm multiplicidade $ \ 1 \ $. (Pois o polinômio e sua derivada não têm raízes comuns). Ponha então $ \ \mathbb{S} := \{a \in \mathbb{F} \ tq. \ a^{q}-a=0 \} \ $. Note que $ \ \mathbb{S} \ $ é um corpo pois: (i) $ \ \mathbb{S} \ $ possui $ \ 0 \ $ e $ \ 1 \ $. (ii) $ \ \forall a,b \in \mathbb{S} \ $ temos $ \ (a-b)^{q}=a^{q}-b^{q}=a-b \in \mathbb{S} \ $. (Lema anterior) E (iii) $ \ \forall a,b \in \mathbb{F} \ $ com $ \ b \neq 0 \ $, $ \ (ab^{-1})^{q}=a^{q}(b^{-1})^{q}=a(b^{q})^{-1}=ab^{-1} \ $. Logo $ \ ab^{-1} \in \mathbb{S} \ $. Dessa forma $ \ \mathbb{S} \ $ é um subcorpo de $ \ \mathbb{F} \ $ que contém $ \ \mathbb{F}_{p} \ $ e todas as raízes de $ \ x^{q}-x \ $. Como $ \ \mathbb{F} \ $ é o menor com estas propriedades, $ \ \mathbb{F}=\mathbb{S} \ $. 
+      
+      % Unicidade
+      (Unicidade) Agora tome $ \ \mathbb{F}_{q} \ $ e seja $ \ p \ $ sua característica. Então, pelo teorema \ref{SonhoDosEstudantes} pág \pageref{SonhoDosEstudantes}, $ \ q=p^{n} \ $ e $ \ \mathbb{F}_{q} \ $ é extensão de seu subcorpo primo $ \ \mathbb{F}_{p} \ $. Agora seja $ \ a \in \mathbb{F}_{q} \ $. Se $ \ a=0 \ $ a identidade $ \ a^{q}-a \ $ ocorre trivialmente. Caso $ \ a \neq 0 \ $, o conjunto destes elementos, denotado por $ \ \mathbb{F}_{q}^{*} \ $ forma um grupo multiplicativo de ordem $ \ q-1 \ $ uma vez que $ \ \forall a,b \in \mathbb{F}_{q}^{*} \ $ temos $ \ ab^{-1} \in \mathbb{F}_{q}^{*} \ $ obviamente. Consequentemente, da teoria de grupos podemos concluir que $ \ a^{q-1}=1 \ $. Logo $ \ a^{q}-a=0 \ $. Em outras palavras, acabamos de demonstrar que $ \ \mathbb{F}_{q}^{*} \ $ é também o conjunto das raízes de $ \ x^{q}-x \in \mathbb{F}_{p}[x] \ $. Assim, $ \ \mathbb{F}_{p}(x^{q}-x) \subseteq \mathbb{F}_{q}^{*} \cup \{0\} \ $. Mas, como $ \ \mathbb{F}_{q}^{*} \ $ é exatamente o conjunto das raízes de $ \ x^{q}-x \ $, nenhum subcorpo próprio de $ \ \mathbb{F}_{q} \ $ poderia ser o corpo de decomposição de $ \ x^{q}-x \ $, pois qualquer um destes viria com raízes faltando. Portanto, $ \ \mathbb{F}_{q}=\mathbb{F}_{p}(x^{q}-x) \ $.
+      \end{proof}
+      
+      % Discussão
+      A parte da unicidade na demonstração acima serve para justificar a nossa fala, quando falamos sobre ``o'' corpo finito (ou corpo de Galois) com $ \ q \ $ elementos, ou sobre o corpo finito (ou corpo de Galois) de ordem $ \ q \ $.
+      
+      % Teorema
+      \begin{teo}[\textcolor{green}{Critério dos subcorpos}]
+      Considere o corpo finito com $ \ q  \ $ elementos $ \ \mathbb{F}_{q} \ $ onde $ \ q = p^{n} \ $ e $ \ p \ $ é a característica desta torre. Então todo subcorpo de $ \ \mathbb{F}_{q} \ $ tem ordem $ \ p^{m} \ $ onde $ \ m \ $ é um divisor positivo de $ \ n \ $. Reciprocamente, se $ \ m \ $ é um divisor positivo de $ \ n \ $, então existe exatamente um divisor positivo de $ \ \mathbb{F}_{q} \ $ com $ \ p^{m} \ $ elementos.
+      \label{CriterioSubCorpos}
+      \end{teo}
+      
+      % Demonstração
+      \begin{proof}
+      É claro que um subcorpo $ \ \mathbb{K} \ $ de $ \ \mathbb{F}_{q} \ $ tem ordem $ \ p^{m} \ $ para algum inteiro positivo $ \ m \leq n \ $. O teorema \ref{QuantidadeElementosCorposFinitos} mostra que $ \ q = p^{n} \ $ precisa ser uma potência de $ \ p^{m} \ $, e então $ \ m \ $ é necessariamente um divisor de $ \ n \ $.
+      
+      Reciprocamente, se $ \ m \ $ é um divisor positivo de $ \ n \ $, então $ \ p^{m}-1 \ $ divide $ \ p^{n}-1 \ $, e então $ \ x^{p^{m}-1}-1 \ $ divide $ \ x^{p^{n}-1}-1 \in \mathbb{F}_{p}[x] \ $. Reciprocamente, $ \ x^{p^{m}}-x \ $ divide $ \ x^{p^{n}}-x = x^{q}-x \in \mathbb{F}_{p}[x] \ $. Logo, toda raiz de $ \ x^{p^{m}}-x \ $ é uma raiz de $ \ x^{q}-x \ $ e portanto pertence a $ \ \mathbb{F}_{q} \ $. Daí segue que $ \ \mathbb{F}_{q} \ $ tem que conter como um subcorpo o corpo de decomposição de $ \ x^{p^{m}}-x \ $ sobre $ \ \mathbb{F}_{p} \ $, e como vimos na demonstração do teorema \ref{ExistenciaEUnicidadeDeCorposFinitos}, este corpo decomposição deve ter ordem $ \ p^{m} \ $. Se houvessem dois subcorpos distintos de ordem $ \ p^{m} \ $ contidos em $ \ \mathbb{F}_{q} \ $, eles juntos possuiriam mais do que $ \ p^{m} \ $ raizes de $ \ x^{p^{m}}-x \ $ em $ \ \mathbb{F}_{q} \ $, o que é obviamente uma contradição.
+      \end{proof}
+      
+      % Dicussão: Grupo multiplicativo é cíclico
+      O próximo teorema é de extrema importância em todo o resto do texto, ele é a base para as principais proposições que sustentam os resultados mais interessantes que apresentaremos, então vejamo-o com atenção.
+      
+      % Teorema: Grupo multiplicativo é cíclico
+      \begin{teo}[\textcolor{green}{O Grupo Multiplicativo proveniente do corpo finito é Cíclico}]
+      Para todo corpo finito $ \ \mathbb{F}_{q} \ $, o grupo multiplicativo $ \ (\mathbb{F}_{q}^{*},*) \ $ é cíclico.
+      \label{GrupoMultiplicativoECiclico}
+      \end{teo}
+      
+      % Demonstração
+      \begin{proof}
+      Para $ \ q=2 \ $ é trivial. Assuma $ \ q \geq 3 \ $. Seja $ \ h:=q-1 \ $ e permita que $ \ h=\prod_{i=1}^{m} \ {p_{i}}^{r_{i}} \ $ seja sua decomposição primária em $ \ \mathbb{F}_{q}^{*} \ $. Para todo $ \ 1 \leq i \leq m \ $, o polinômio $ \ x^{h/p_{i}}-1 \ $ tem no máximo $ \ h/p_{i} \ $ raízes em $ \ \mathbb{F}_{q} \ $. Uma vez que $ \ h/p_{i} < h \ $ segue que existem elementos não nulos em $ \ \mathbb{F}_{q} \ $ que não são raízes deste polinômio. Seja $ \ a_{i} \ $ um destes elementos e ponha $ \ b_{i}=a_{i}^{h/p_{i}^{r_{i}}} \ $. Assim temos $ \ b_{i}^{p_{i}^{r_{i}}}=1 \ $ uma vez que a ordem de $ \ b_{i} \ $ é um divisor de $ \ p_{i}^{r_{i}} \ $ e portanto é da forma $ \ p_{i}^{s_{i}} \ $ com $ \ 0 \leq s_{i} \leq r_{i} \ $. Por outro lado $ \ b_{i}^{p_{i}^{r_{i}-1}} = a_{i}^{h/p_{i}} \neq 1 \ $ logo a ordem de $ \ b_{i} \ $ é $ \ p_{i}^{r_{i}} \ $. Afirmamos que o elemento $ \ b := \prod_{i=1}^{m} \ b_{i} \ $ tem ordem $ \ h \ $. Suponha o contrário, que a ordem de $ \ b \ $ seja um divisor próprio de $ \ h \ $ e é portanto divisor de pelo menos um dos $ \ m \ $ inteiros $ \ h/p_{i} \ $ com $ \ 1 \leq i \leq m \ $, digamos que seja menor do que $ \ h/p_{1} \ $. Então nós temos $ \ 1 = b^{h/p_{1}} = \prod_{i=1}^{m} \ b_{i}^{h/p_{i}} \ $. Agora, se $ \ 2 \leq i \leq m \ $, então $ \ p_{i}^{r_{i}} \ $ divide $ \ h/p_{1} \ $, e consequentemente $ \ b_{i}^{h/p_{1}} = 1 \ $. Portanto $ \ b_{1}^{h/p_{1}} = 1 \ $. Isto implica que a ordem de $ \ b_{1} \ $ tem que dividir $ \ h/p_{1} \ $, o que é impossível uma vez que a ordem de $ \ b_{1} \ $ é $ \ p_{1}^{r_{1}} \ $. Portanto, $ \ \mathbb{F}_{q}^{*} \ $ é um grupo cíclico gerado por $ \ b \ $.
+      \end{proof}
+      
+      % Discussão: Prévia da def de primitivo
+      Agora já podemos definir o primeiro protagonista desta história.
+      
+      % Definição: Elemento primitivo
+      \begin{defi}[\textcolor{green}{Elemento Primitivo}]
+      Um gerador do grupo $ \ (\mathbb{F}_{q}^{*},*) \ $ é chamado de \textbf{\it elemento primitivo} de $ \ \mathbb{F}_{q} \ $.
+      \end{defi}
+      
+    % Fim do primeiro capítulo
+    
+    % Subseção: Raízes de polinômios irredutíveis
+    \subsection{Raízes de polinômios irredutíveis}
+    
+      % Início da subseção ----------
+      
+      % Discussão
+      Nesta seção coletamos algumas informações a respeito do conjunto das raízes de um polinômio irredutível sobre um corpo finito.
+      
+      % Lema: 
+      \begin{lema}[\textcolor{green}{Divisibilidade vs. Inclusão de Raízes}]
+      Seja $ \ f \in \mathbb{F}_{q}[x] \ $ um polinômio irredutível sobre um corpo finito $ \ \mathbb{F}_{q}  \ $ e seja $ \ \alpha \ $ uma raíz de $ \ f \ $ em uma extensão de $ \ \mathbb{F}_{q}  \ $. Então para um polinômio
+      $ \ h \in  \mathbb{F}_{q}[x]   \ $ nós temos $ \ h(\alpha)=0 \ $ se, e somente se,$ \ f \ $ divide  $ \ h \ $.
+      \label{DivisibilidadeVsInclusaoDeReaizes}       
+      \end{lema}
+
+      % Demonstração
+      \begin{proof}
+      Seja $ \ a \ $ o coeficiente líder de $ \ f \ $ e defina
+      $ \ g(x)=a^{-1}f(x) \ $. Então $ \ g \ $ é um polinômio mônico irredutível em $ \ \mathbb{F}_{q}[x] \ $ com $\ g(\alpha)=0 \ $ e, portanto, é o polinômio minimal de $ \ \alpha \ $ sobre $ \ \mathbb{F}_{q} \ $. O restante segue das propriedades do polinômio minimal.
+      \end{proof}
+      
+      % Lema
+      \begin{lema}[\textcolor{green}{Relação entra $ \ f \ $ e o polinômio $ \ x^{q^{n}}-x \ $}]
+      Seja $ \ f \in \mathbb{F}_{q}[x] \ $ um polinômio irredutível sobre $ \ \mathbb{F}_{q}  \ $ de grau $ \ m \ $.
+       Então $ \ f(x) \ $ divide $ \ x^{q^n}-x \ $ se, e somente se, 
+       $ \ m \ $ divide $ \ n \ $.
+      \label{lema213}
+      \end{lema}    
+
+      % Demonstração
+      \begin{proof}
+      Suponha que $ \ f(x) \ $ divide $ \ x^{q^n}-x$. Seja
+      $ \ \alpha \ $ uma raiz de $ \ f \ $ no corpo de decomposição de $ \ f \ $ sobre $ \ \mathbb{F}_{q} \ $. Então 
+      $\ \alpha^{q^n}=\alpha \ $, logo $ \ \alpha \in \mathbb{F}_{q^n} \ $. Segue que $ \ \mathbb{F}_q (\alpha) \ $ é um subcorpo de $ \ \mathbb{F}_{q^n} \ $. Mas, uma vez que $ \ [ \mathbb{F}(\alpha):\mathbb{F}_{q} ] = m \ $ e 
+      $ \ [ \mathbb{F}_{q^n}:\mathbb{F}_q ] = n \ $, e considerando que uma extensão de um corpo pode ser vista como um espaço vetorial sobre o corpo de baixo, segue da teoria de espaços vetoriais que $ \ m \ $ divide  $ \ n \ $.
+      
+      Por outro lado, se $ \ m \ $ divide $ \ n \ $ , o teorema \ref{CriterioSubCorpos} implica que $ \ \mathbb{F}_{q^n} \ $ contém $ \ \mathbb{F}_{q^m} \ $ como um subcorpo. Se $ \ \alpha \ $ é uma raiz de $ \ f \ $ no corpo de decomposição de $ \ f \ $ sobre $ \ \mathbb{F}_{q} \ $, então $ \ [\mathbb{F}_{q}(\alpha):\mathbb{F}_{q}] = m\ $, logo $ \ \mathbb{F}_{q}(\alpha) = \mathbb{F}_{q^m} \ $. Consequentemente, temos que $ \ \alpha \in \mathbb{F}_{q^n} \ $,
+      assim $\ \alpha^{q^n} = \alpha \ $, e então 
+      $ \ \alpha \ $ é uma raiz de $ \ x^{q^n}-x \in \mathbb{F}_{q}[x] \ $. Deduzimos então a partir do Lema \ref{DivisibilidadeVsInclusaoDeReaizes} que $ \ f(x) \ $ divide 
+      $ \ x^{q^n} - x \ $.
+      \end{proof}
+
+      % Teorema
+      \begin{teo}[\textcolor{green}{Raizes de um polinômio irredutível sobre um corpo finito}]
+      Se $ \ f \ $ é um polinômio irredutivel em $ \ \mathbb{F}_{q}[x] \ $ de grau $ \ m \ $, então  $ \ f \ $ tem uma raiz $ \ \alpha \in \mathbb{F}_{q^m} \ $. Além disso, todas as raizes de $ \ f \ $ são simples e são dadas  pelos $ \ m \ $ elementos distintos 
+      $ \ \alpha, \alpha^{q}, \alpha^{q^2}, \cdots, \alpha^{q^{m-1}} \ $ de
+      $ \ \mathbb{F}_{q^m} \ $
+      \label{RaizesDePolinomioIrredutivelSobreCorpoFinito}
+      \end{teo}
+
+      % Demonstração
+      \begin{proof}
+      Seja $ \ \alpha \ $ uma raiz de $  f \ $ no corpo de decomposição de $ \ f \ $ sobre $ \ \mathbb{F}_{q} \ $. Então temos que 
+      $ \ [\mathbb{F}_{q}(\alpha):\mathbb{F}_{q}]=m \ $, portanto 
+      $ \ \mathbb{F}_{q}(\alpha)=\mathbb{F}_{q^m} \ $, e em particular 
+      temos que $ \ \alpha \in \mathbb{F}_{q^m} \ $. Em sequida mostramos que se $ \ \beta \in \mathbb{F}_{q^m} \ $ é uma raiz de $ \ f \ $, então
+      $ \ \beta^q \ $ também é uma raiz de $ \ f \ $. Escreva
+      $ \ f(x) = \sum\limits_{i=0}^{m} \  a_{i}x^{qi} \ $ com 
+      $ \ a_i \in \mathbb{F}_q \ $ para $ \ 0\leq i\leq m \ $. Então usando o Lema \ref{PropriedadeCrucialDosCorposFinitos} e o Teorema \ref{SonhoDosEstudantes}, nós temos:
+       
+      $$ \ f(\beta^{q}) = \sum\limits_{i=0}^{m} \  a_{i}\beta^{qi} = \sum\limits_{i=0}^{m} \ {a_{i}}^q\beta^{qi}  =
+      \sum\limits_{i=0}^{m} \  (a_{i}\beta^{i})^{q} = {f(\beta)}^{q} = 0 \ $$
+       
+      Portanto esses elementos 
+      $ \ \alpha, \alpha^{q}, \alpha^{q^2}, \cdots, \alpha^{q^{m-1}} \ $ são raizes de $\ f \ $. Resta então provar que esses elementos são distintos. Suponha,por absurdo, que $ \ \alpha^{q^j} =\alpha^{q^k} \ $
+      para algum $\ j \ $ e $ \ k \ $ com $ \ 0\leq j \leq k \leq m-1 \ $.
+      Ao elevar essa identidade a potência $\ q^{m-k} \ $, nós temos:
+       
+      $$ \ \alpha^{q^{m-k+j}}=\alpha^{q^m}=\alpha. \ $$
+       
+      Seque então do Lema \ref{lema212} que $\ f \ $  divide 
+      $ \ \alpha^{q^{m-k+j}} - x \ $. Pelo Lema \ref{DivisibilidadeVsInclusaoDeReaizes}, isso só é possivel se $ \ m \ $ divide $ \ m-k+j \ $. Mas nós temos que
+      $ \ 0 < m -k + j < m \ $, chegando assim a uma contradição.
+      \end{proof}
+      
+      % Corolário
+      \begin{cor}[\textcolor{green}{$ \ f \in \mathbb{F}_{q}[x] \ $ irredutível $ \ \implies \ \mathbb{F}_{q^{\delta(f)}} = \mathbb{F}_{q}(f) \ $}]
+      Seja $ \ f \ $ um polinômio irredutível em $ \ \mathbb{F}_{q}[x] \ $ de grau $ \ m \ $. Então o corpo de decomposição de $ \ f \ $ sobre  $ \ \mathbb{F}_{q} \ $ é dado por $ \ \mathbb{F}_{q^m} \ $.
+      \label{CorpoDeDecomposicaoDoPolinomioIrredutivelSobreUmCorpoFinito}
+      \end{cor}
+      
+      % Demonstração
+      \begin{proof}
+      O Teorema \ref{RaizesDePolinomioIrredutivelSobreCorpoFinito} mostra que $ \ f \ $ se decompõe em $ \ \mathbb{F}_{q^m} \ $. Além disso, 
+      $\ \mathbb{F}_{q}(\alpha, \alpha^{q}, \alpha^{q^2}, \cdots, \alpha^{q{m-1}}) =
+      \mathbb{F}_q(\alpha) = \mathbb{F}_{q^m} \ $ para uma raiz $ \ \alpha \ $ de $ \ f \ $ em $ \ \mathbb{F}_{q^m} \ $, onde a segunda identidade é tirada da demonstração do Teorema \ref{RaizesDePolinomioIrredutivelSobreCorpoFinito}.
+      \end{proof}
+      
+      % Corolário
+      \begin{cor}[\textcolor{green}{Dois polinômios irredutíveis, mesmo corpo de decomposição}]
+      Quaisquer dois polinômios irredutiveis em $ \ \mathbb{F}_{q}[x] \ $ de mesmo grau  tem corpos de decomposição isomórficos.
+      \label{coro216}
+      \end{cor}
+
+      % Discussão
+      Introduzimos uma terminologia conveniente para os elementos que aparecem no
+      Teorema \ref{RaizesDePolinomioIrredutivelSobreCorpoFinito}, independentemente do $ \ \alpha \in \mathbb{F}_{q^m} \ $
+      ser uma raiz do polinômio irredutivel em $ \ \mathbb{F}_{q}[x] \ $ de grau 
+      $ \ m \  $ ou não.
+      
+      % Definição
+      \begin{defi}[\textcolor{green}{Conjugados}]
+      Seja $ \ \mathbb{F}_{q^m} \ $ uma extensão de $\ \mathbb{F}_q \ $ e seja
+      $ \ \alpha \in \mathbb{F}_{q^m} \ $. Então os elementos 
+      $ \ \alpha, \alpha^q, \alpha^{q^2}, \cdots, \alpha^{q^{m-1}} \ $ são chamados de \textit{conjugados} de $ \ \alpha \ $ em relação a 
+      $ \ \mathbb{F}_q \ $.
+      \label{def217}
+      \end{defi}
+
+      \begin{teo}[\textcolor{green}{Conjugados tem a mesma ordem no grupo multiplicativo}]
+      Os conjugados de $ \ \alpha \in \mathbb{F}_{q}^*  \ $ 
+      em relação a qualquer subcorpo de $ \ \mathbb{F}_q \ $ tem a mesma ordem no grupo
+      $ \ \mathbb{F}_{q}^* \ $.
+      \label{teo218}
+      \end{teo}
+      
+      % Demontração
+      \begin{proof}
+      Uma vez que $ \ \mathbb{F}_{q}^* \ $ é um grupo cíclico, pelo  Teorema \ref{GrupoMultiplicativoECiclico}, o resultado segue de resultados da teoria de grupos, e do fato de que toda potência da característica de $ \ \mathbb{F}_{q} \ $ é coprima com a ordem $ \ q-1 \ $ de
+      $ \ \mathbb{F}_{q}^{*} \ $.
+      \end{proof}
+      
+      % Corolário
+      \begin{cor}[\textcolor{green}{$ \ \alpha \ $ primitivo $ \ \implies \ $ seus conjugados também são}]
+      Se $ \ \alpha \ $ é um elemento primitivo de $ \ \mathbb{F}_{q} \ $, então todos os seus conjugados com relação ao subcorpo $ \ \mathbb{F}_{q} \ $ também o são.
+      \label{coro219}
+      \end{cor}
+      
+      % Teorema: Os distintos automorfismos
+      \begin{teo}[\textcolor{green}{Descrição dos automorfismos entre corpos finitos}]
+      Faltando
+      \label{DistintosAutomorfismosEntreCorposFinitos}
+      \end{teo}
+      
+      % Demonstração
+      \begin{proof}
+      Faltando
+      \end{proof}
+      
+      % Fim da subseção ----------
+    
+    % Subseção: Título
+    \subsection{Traços, Normas e Bases}
+    
+      % Início da subseção ----------
+      
+      % Parágrafo: Introdução do capítulo
+      Neste capítulo falaremos um pouco sobre os conceitos de traço e norma sobre corpos finitos, para que possamos contruir e definir o que vem a ser uma base normal, e por fim elemento normal.
+      
+      % Definição: Traço
+      \begin{defi}[\textcolor{green}{Traço}]
+      Seja $ \ \alpha \in \mathbb{F}_{q^{m}} \ $ e ponha $ \ \mathbb{F} := \mathbb{F}_{q^{m}} \ $ e $ \ \mathbb{K} := \mathbb{F}_{q} \ $. O traço de $ \ \alpha \ $ sobre $ \ \mathbb{K} \ $ é definido por $ \ Tr_{\mathbb{F}/\mathbb{K}}(\alpha) := \sum_{k=0}^{m-1} \ \alpha^{q^{k}} \ $.
+      \end{defi}
+      
+      % Discussão: Traço ~ Conjugados ~ Minimal(alfa)
+      Repare que, por definição concluímos que o traço é exatamente a soma de $ \ \alpha \ $ com seus conjugados. Uma outra descrição do traço pode ser conseguida a partir do polinômio minimal de $ \ \alpha \ $. Pelo que vimos na seção anterior, se $ \ f \in \mathbb{F}_{q}[x] \ $ é o polinômio minimal de $ \ \alpha \ $ então seu grau divide $ \ m \ $. Definindo $ \ g(x) := f(x)^{m/\delta(f)} \ $ como sendo o polinômio característico de $ \ \alpha \ $ onde $ \ \delta(f) \ $ representa o grau de $ \ f \ $, segue da seção anterior que $ \ \alpha \ $ e seus conjugados constituem exatamente as raízes de $ \ g \ $. Consequentemente, da teoria de polinômios podemos concluir que o traço pode ser encontrado a partir dos coeficientes de $ \ g \ $ da seguinte forma: Se $ \ g(x) = \sum_{i=0}^{\delta(g)} \ a_{i} x^{i} \ $ então $ \ Tr_{\mathbb{F}_{q^m}/\mathbb{F}_{q}}(\alpha) = -a_{\delta(g)-1} \ $. Ou seja, é o simétrico do próximo coeficiente após o líder uma vez ordenados segundo a ordem descrescente das potências dos termos associados no polinômio característico de $ \ \alpha \ $.
+      
+      % Teorema: Propriedades do traço
+      \begin{teo}[\textcolor{green}{Propriedades do traço}]
+      Sejam $ \ \mathbb{F} = \mathbb{F}_{q^{m}} \ $ e $ \ \mathbb{K} = \mathbb{F}_{q} \ $. Então, a função $ \ Tr_{\mathbb{F}/\mathbb{K}} : \mathbb{F} \rightarrow \mathbb{K} \ $ satsfaz as seguintes propriedades:
+      \begin{itemize}
+          \item[(i)](Preserva a soma) $ \ \forall \alpha, \beta \in \mathbb{F} \ Tr_{\mathbb{F}/\mathbb{K}}(\alpha+\beta) = Tr_{\mathbb{F}/\mathbb{K}}(\alpha)+Tr_{\mathbb{F}/\mathbb{K}}(\beta) \ $
+          \item[(ii)](Preserva o produto por escalar) $ \ \forall a \in \mathbb{K} \ \forall \alpha \in \mathbb{F} \ Tr_{\mathbb{F}/\mathbb{K}}(a\alpha) = aTr_{\mathbb{F}/\mathbb{K}}(\alpha) \ $
+          \item[(iii)](Transformação linear) $ \ Tr_{\mathbb{F}/\mathbb{K}} : \mathbb{F} \rightarrow \mathbb{K} \ $ é uma transformação linear sobrejetora quando tanto $ \ \mathbb{F} \ $ quanto $ \ \mathbb{K} \ $ são vistos como espaços vetoriais sobre $ \ \mathbb{K} \ $
+          \item[(iv)](Traço em $ \ \mathbb{K} \ $) $ \ \forall a \in \mathbb{K} \ Tr_{\mathbb{F}/\mathbb{K}}(a) = ma \ $
+          \item[(v)](Traço absorve potências por $ \ q \ $) $ \ \forall \alpha \in \mathbb{F} \ Tr_{\mathbb{F}/\mathbb{K}}(\alpha^{q}) = Tr_{\mathbb{F}/\mathbb{K}}(\alpha) \ $
+      \end{itemize}
+      \label{PropriedadesDoTraco}
+      \end{teo}
+      
+      % Demonstração
+      \begin{proof}
+      % Item (i)
+      (i) Para $ \ \alpha, \beta \in \mathbb{F} \ $ usamos o teorema \ref{SonhoDosEstudantes} para obter $ \ Tr_{\mathbb{F}/\mathbb{K}}(\alpha+\beta) = \sum_{i=0}^{m-1} \ (\alpha+\beta)^{q^{i}} = \sum_{i=0}^{m-1} \ (\alpha^{q^{i}}+\beta^{q^{i}}) = \sum_{i=0}^{m-1} \ \alpha^{q^{i}} + \sum_{i=0}^{m-1} \ \beta^{q^{i}} = Tr_{\mathbb{F}/\mathbb{K}}(\alpha) + Tr_{\mathbb{F}/\mathbb{K}}(\beta) \ $.
+      \\ \\
+      % Item (ii)
+      (ii) Dado $ \ c \in \mathbb{K} \ $ nós temos $ \ c^{q^{j}} = c \ \forall j \geq 0 $ pelo Lema \ref{PropriedadeCrucialDosCorposFinitos}. Portanto $ \ \forall \alpha \in \mathbb{F} \ $ obtemos $ \ Tr_{\mathbb{F}/\mathbb{K}}(c\alpha) = \sum_{i=0}^{m-1} \ (c\alpha)^{q^{i}} =  \sum_{i=0}^{m-1} \ c^{q^{i}}\alpha^{q^{i}} = \sum_{i=0}^{m-1} \ c\alpha^{q^{i}} = c\sum_{i=0}^{m-1} \ \alpha^{q^{i}} = cTr_{\mathbb{F}/\mathbb{K}}(\alpha) \ $.
+      \\ \\
+      % Item (iii)
+      (iii) As propriedades (i) e (ii) junto com o fato $ \ \forall \alpha \in \mathbb{F} \ Tr_{\mathbb{F}/\mathbb{K}}(\alpha) \in \mathbb{K} \ $ mostram que $ \ Tr_{\mathbb{F}/\mathbb{K}} \ $ é uma transformação linear de $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $. Agora, sabemos de álgebra linear que, para uma transformação linear ser sobrejetora, só basta que ela não seja identicamente nula. Então provemos que existe $ \ \alpha \in \mathbb{F} \ $ tal que $ \ Tr_{\mathbb{F}/\mathbb{K}}(\alpha) \neq 0 \ $. Com efeito, dado $ \ \alpha \in \mathbb{F} \ $ temos que $ \ Tr_{\mathbb{F}/\mathbb{K}}(\alpha) = 0 \ \iff \ \alpha \ $ é uma raíz do polinômio $ \ \sum_{i=0}^{m-1} \ x^{q^{i}} \ $. Como este polinômio pode ter no máximo $ \ q^{m-1} \ $ raízes e existem $ \ q^{m} \ $ elementos em $ \ \mathbb{F} \ $ segue que pelo menos um elemento deste corpo não pode ser raíz deste polinômio. Nomeando-o(s) de $ \ \beta \ $ deve ocorrer $ \ Tr_{\mathbb{F}/\mathbb{K}}(\beta) \neq 0 \ $.
+      \\ \\
+      % Item (iv)
+      (iv) Seja $ \ a \in \mathbb{K} \ $. Aplicando novamente o Lema \ref{PropriedadeCrucialDosCorposFinitos} obtemos imediatamente $ \ Tr_{\mathbb{F}/\mathbb{K}}(a) = \sum_{i=0}^{m-1} \ a^{q^{i}} = \sum_{i=0}^{m-1} \ a = ma \ $.
+      \\ \\
+      % Item (v)
+      (v) Seja $ \ \alpha \in \mathbb{F} \ $. Aplicando mais uma vez o Lema \ref{PropriedadeCrucialDosCorposFinitos} obtemos $ \ \alpha^{q^{m}} = \alpha \ $. Assim $ \ Tr_{\mathbb{F}/\mathbb{K}}(\alpha^{q}) = \sum_{i=0}^{m-1} \ {(\alpha^{q})}^{q^{i}} = \sum_{i=0}^{m-1} \ \alpha^{q^{i+1}} = \alpha^{q^{m}} + \sum_{i=1}^{m-1} \ \alpha^{q^{i}} = \alpha + \sum_{i=1}^{m-1} \ \alpha^{q^{i}} = \sum_{i=0}^{m-1} \ \alpha^{q^{i}} = Tr_{\mathbb{F}/\mathbb{K}}(\alpha) \ $.
+      \end{proof}
+      
+      % Discussão sobre o traço
+      O traço não é apenas uma transformação linear de $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $, como também nos ajuda a descrever todas as transformações lineares de $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $, e o melhor de tudo é que isto acontece de forma independente da base escolhida.
+      
+      % Teorema: Descrição das transformações lineares
+      \begin{teo}[\textcolor{green}{Descrição das Transformações Lineares}]
+      Seja $ \ \mathbb{F} \ $ uma extensão finita do corpo finito $ \ \mathbb{K} \ $. Então, as transformações lineares de $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $ são exatamente as funções $ \ L_{\beta} \ $, $ \ \beta \in \mathbb{F} \ $ onde $ \ L_{\beta}(\alpha) = Tr_{\mathbb{F}/\mathbb{K}}(\beta\alpha) \ $ para todo $ \ \alpha \in \mathbb{F} \ $. Alem disso, $ \ L_{\alpha} \neq L_{\beta} \ $ sempre que $ \ \alpha \ $ e $ \ \beta \ $ são elementos distintos de $ \ \mathbb{F} \ $.
+      
+      % Demonstração
+      \begin{proof}
+      Cada função $ \ L_{\beta} \ $ é uma transformação linear de $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $ pelo teorema \ref{PropriedadesDoTraco} item (iii). Para $ \ \beta, \gamma \in \mathbb{F} \ $ com $ \ \beta \neq \gamma \ $, nós temos $ \ L_{\beta}(\alpha) - L_{\gamma}(\alpha) = Tr_{\mathbb{F}/\mathbb{K}}(\beta\alpha) - Tr_{\mathbb{F}/\mathbb{K}}(\gamma\alpha) = Tr_{\mathbb{F}/\mathbb{K}}(\beta\alpha - \gamma\alpha) = Tr_{\mathbb{F}/\mathbb{K}}((\beta - \gamma)\alpha) = L_{\beta-\gamma}(\alpha) \ $. Como $ \ L_{\beta-\gamma} \ $ não pode ser identicamente nula, como já vimos, segue que $ \ L_{\beta} \neq L_{\gamma} \ $. Se $ \ \mathbb{F} = \mathbb{F}_{q}^{m} \ $ e $ \ \mathbb{K} = \mathbb{F}_{q} \ $ então $ \ \#\{ L_{\alpha} \ / \ \alpha \in \mathbb{F} \} = q^{m} \ $. Por outro lado, cada transformação linear de $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $ pode ser obtida associando cada elemento de uma base dada de $ \ \mathbb{F} \ $ sobre $ \ \mathbb{K} \ $, a um único elemento de $ \ \mathbb{K} \ $. Isto pode ser feito de exatamente $ \ q^{m} \ $ maneiras. Ou seja, existem exatamente $ \ q^{m} \ $ transformações lineares de $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $. Portanto o conjunto $ \ \{ L_{\alpha} \ / \ \alpha \in \mathbb{F} \} \ $ possui todas elas.
+      \end{proof}
+      \end{teo}
+      
+      % Discussão: Transitividade do traço
+      Quando temos uma cadeia de estensões de corpos, a composição de traços satisfaz uma propriedade bem simples.
+      
+      % Teorema: Transitividade do traço
+      \begin{teo}[\textcolor{green}{Transitividade do traço}]
+      Seja $ \ \mathbb{K} \ $ um corpo finito, $ \ \mathbb{F} \ $ uma extensão finita de $ \ \mathbb{K} \ $ e $ \ \mathbb{E} \ $ uma extensão finita de $ \ \mathbb{F} \ $. Então $ \ Tr_{\mathbb{E}/\mathbb{K}} = Tr_{\mathbb{F}/\mathbb{K}} \circ Tr_{\mathbb{E}/\mathbb{F}} \ $.
+      \label{TransitividadeDoTraco}
+      \end{teo}
+      
+      % Demonstração
+      \begin{proof}
+      Seja $ \ \mathbb{K} = \mathbb{F}_{q} \ $ e $ \ m = [\mathbb{F}|\mathbb{K}] \ $ e $ \ n = [\mathbb{E}|\mathbb{F}] \ $. Logo, de álgebra linear segue que $ \ [\mathbb{E}|\mathbb{K}] = mn \ $. Então, para $ \ \alpha \in \mathbb{E} \ $ nós temos $ \ Tr_{\mathbb{F}/\mathbb{K}}(Tr_{\mathbb{E}/\mathbb{F}}(\alpha)) = \sum_{i=0}^{m-1} \ {Tr_{\mathbb{E}/\mathbb{F}}(\alpha)}^{q^{i}} = \sum_{i=0}^{m-1} \ (\sum_{j=0}^{n-1} \ \alpha^{q^{jm}})^{q^{i}} = \sum_{i=0}^{m-1} \ \sum_{j=0}^{n-1} \ \alpha^{q^{jm+i}} = \sum_{k=0}^{mn-1} \ \alpha^{q^{k}} = Tr_{\mathbb{E}/\mathbb{K}}(\alpha) \ $.
+      \end{proof}
+      
+      % Discussão: Norma
+      Há uma outra função interessante que pode ser definida a partir de um corpo finito em algum de seus subcorpos, ela é formada fazendo o produto de um elemento com seus conjugados relativos a este subcorpo.
+      
+      % Definição: Norma
+      \begin{defi}[\textcolor{green}{Norma}]
+      Dado $ \ \alpha \in \mathbb{F} = \mathbb{F}_{q^{m}} \ $ e $ \ \mathbb{K} = \mathbb{F}_{q} \ $, a norma $ \ N_{\mathbb{F}/\mathbb{K}}(\alpha) \ $ de $ \ \alpha \ $ sobre $ \ \mathbb{K} \ $ é definida por $ \ N_{\mathbb{F}/\mathbb{K}}(\alpha) = \prod_{i=0}^{m-1} \ \alpha^{q^{i}} = \alpha^{(q^{m}-1)/(q-1)} \ $.
+      \end{defi}
+      
+      % Discussão: Sobre Norma e Poli. característico
+      Assim como o traço pode ser expresso a partir dos coeficientes do polinômio característico, a norma também pode. Utilizando alguns resultados da teoria dos polinômios, e comparando coeficientes conseguimos obter $ \ N_{\mathbb{F}/\mathbb{K}}(\alpha) = (-1)^{m}a_{0} \ $ onde $ \ a_{0} \ $ é o termo constante do polinômio característico de $ \ \alpha \ $. Antes de ler o enunciado do teorema a seguir, é importante saber também que estamos adotando a notação $ \ f|_ {S} \ $ para representar a restrição de uma função $ \ f \ $ a um subconjunto $ \ S \ $ de seu domínio original.
+      
+      % Teorema: Propriedades da Norma
+      \begin{teo}[\textcolor{green}{Propriedades da Norma}]
+      Seja $ \ \mathbb{F} = \mathbb{F}_{q^{m}} \ $ e $ \ \mathbb{K} = \mathbb{F}_{q} \ $. Então a função norma satisfaz as seguintes propriedades:
+      \begin{itemize}
+          \item[(i)](Preserva o Produto) $ \ \alpha, \beta \in \mathbb{F} \ N_{\mathbb{F}/\mathbb{K}}(\alpha\beta) = N_{\mathbb{F}/\mathbb{K}}(\alpha) N_{\mathbb{F}/\mathbb{K}}(\beta) \ $
+          \item[(ii)] $ \ N_{\mathbb{F}/\mathbb{K}} \ $ é uma função sobrejetora de $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $ e $ \ N_{\mathbb{F}/\mathbb{K}}|_{\mathbb{F}^{*}} \ $ é sobrejetora em $ \ \mathbb{K}^{*} \ $
+          \item[(iii)](Norma em $ \ \mathbb{K} \ $) $ \ \forall a \in \mathbb{K} \ N_{\mathbb{F}/\mathbb{K}}(a) = a^{m} \ $
+          \item[(iv)](Norma absorve potências por $ \ q \ $) $ \ \forall \alpha \in \mathbb{F} \ N_{\mathbb{F}/\mathbb{K}}(\alpha^{q}) = N_{\mathbb{F}/\mathbb{K}}(\alpha) \ $
+      \end{itemize}
+      \end{teo}
+      
+      % Demonstração
+      \begin{proof}
+      (i) Segue imediatamente da definição de norma. Já vimos que $ \ N_{\mathbb{F}/\mathbb{K}} \ $ é uma função de $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $. Uma vez que $ \ N_{\mathbb{F}/\mathbb{K}}(\alpha) = 0 \ \iff \ \alpha = 0 \ $, $ \ N_{\mathbb{F}/\mathbb{K}} \ $ mapeia $ \ \mathbb{F}^{*} \ $ em $ \ \mathbb{K}^{*} \ $. A propriedade (i) mostra que $ \ N_{\mathbb{F}/\mathbb{K}} \ $ é um homomorfismo de grupos entre estes grupos multiplicativos. Uma vez que os elementos do núcleo de $ \ N_{\mathbb{F}/\mathbb{K}} \ $ são exatamente as raízes do polinômio $ \ x^{(q^{m}-1)/(q-1)}-1 \in \mathbb{K}[x] \ $ em $ \ \mathbb{F} \ $, a ordem $ \ d \ $ do núcleo satisfaz $ \ d \leq (q^{m}-1)/(q-1) \ $. Pelo de homomorfismos de grupos, a imagem de $ \ N_{\mathbb{F}/\mathbb{K}} \ $ tem ordem $ \ (q^{m}-1)/d \ $, o qual é $ \ \geq q-1 \ $. Portanto, $ \ N_{\mathbb{F}/\mathbb{K}} \ $ mapeia $ \ \mathbb{F}^{*} \ $ em $ \ \mathbb{K}^{*} \ $ e também $ \ \mathbb{F} \ $ em $ \ \mathbb{K} \ $, ambas de forma sobrejetiva. A propriedade (iii) segue da definição de norma e do fato de que, para $ \ a \in \mathbb{K} \ $, os conjugados de $ \ a \ $ relativos a $ \ \mathbb{K} \ $ se resumem a apenas $ \ a \ $. Finalmente, nós temos $ \ N_{\mathbb{F}/\mathbb{K}}(\alpha^{q}) = {N_{\mathbb{F}/\mathbb{K}}}^{q} = N_{\mathbb{F}/\mathbb{K}}(\alpha) \ $ por causa de (i) e $ \ N_{\mathbb{F}/\mathbb{K}}(\alpha) \in \mathbb{K} \ $, e assim (iv) está demonstrado.
+      \end{proof}
+      
+      % Teorema: Transitividade da norma
+      \begin{teo}[\textcolor{green}{Transitividade da Norma}]
+      Seja $ \ \mathbb{K} \ $ um corpo finito, $ \ \mathbb{F} \ $ uma extensão finita de $ \ \mathbb{K} \ $ e $ \ \mathbb{E} \ $ uma extensão finita de $ \ \mathbb{F} \ $. Então $ \ N_{\mathbb{E}/\mathbb{K}}(\alpha) = N_{\mathbb{F}/\mathbb{K}}(N_{\mahtbb{E}/\mathbb{F}}(\alpha)) \ $ para todo $ \ \alpha \in \mathbb{E} \ $.
+      \end{teo}
+      
+      % Demonstração
+      \begin{proof}
+      Com a mesma notação que usamos na demonstração do Teorema \ref{TransitividadeDoTraco}, nós temos que, para todo $ \ \alpha \in \mathbb{E} \ $, $ \ N_{\mathbb{F}/\mathbb{K}}(N_{\mathbb{E}/\mathbb{F}}(\alpha) = N_{\mathbb{F}/\mathbb{K}}(\alpha^{(q^{mn}-1)/(q^{m}-1)}) = (\alpha^{(q^{mn}-1)/(q^{m}-1)})^{(q^{m}-1)/(q-1)} = \alpha^{(q^{mn}-1)/(q-1)} = N_{\mathbb{E}/\mathbb{K}}(\alpha) \ $. 
+      \end{proof}
+      
+      % Definição: Base normal
+      \begin{defi}[\textcolor{green}{Base Normal}]
+      Sejam $ \ \mathbb{K} = \mathbb{F}_{q} \ $ e $ \ \mathbb{F} = \mathbb{F}_{q}^{m} \ $. Então uma base de $ \ \mathbb{F} \ $ sobre $ \ \mathbb{K} \ $ da forma $ \{ \alpha, \alpha^{q}, ... , \alpha^{q^{m-1}} \} \ $, consistindo de um certo elemento $ \ \alpha \in \mathbb{F} \ $ e seus conjugados com relação a $ \ \mathbb{K} \ $, é chamado uma base normal de $ \ \mathbb{F} \ $ sobre $ \ \mathbb{K} \ $.
+      \end{defi}
+      
+      % Discussão: Revisão de álgebra linear
+      Nesse momento é bom relembrarmos alguns fatos e conceitos de álgebra linear. Se $ \ T \ $ é um operador linear no espaço vetorial de dimensão finita $ \ \mathbb{V} \ $ sobre o corpo (arbitrário) $ \ \mathbb{K} \ $, então dizemos que um polinômio $ \ f(x) = \sum_{i=0}^{n} \ a_{i}x^{i} \in \mathbb{K}[x] \ $ aniquila $ \ T \ $ quando $ \ \sum_{i=0}^{n} \ a_{i}T^{i} = 0 \ $ (lembrando que $ \ T^{0} = I \ $) onde $ \ I \ $ é o operador identidade e $ \ 0 \ $ o operador nulo sobre $ \ v \ $. O polinômio mônico unicamente determinado de menor grau positivo com esta propriedade é chamado de polinômio minimal de $ \ T \ $. Ele divide qualquer outro polinômio em $ \ \mathbb{K}[x] \ $ que aniquile $ \ T \ $. Em particular, o polinômio minimal para $ \ T \ $ divide o polinõmio característico $ \ g(x) \ $ de $ \ T \ $ (Teorema de Cayley-Hamilton), que é dado por $ \ der(xI-T) \ $ e é um polinômio mônico de grau igual a dimensão de $ \ V \ $. Um vetor $ \ \alpha \in V \ $ é dito vetor cíclico de $ \ T \ $ quando os vetores $ \ \{ T^{k}(\alpha) \}_{k=0,1,2,...} \ $ geram o espaço $ \ V \ $. O seguinte lema é um resultado padrão de álgebra linear.
+      
+      % Lema: Artin Lemma
+      \begin{lema}[\textcolor{green}{Lema de Artin}]
+      Sejam $ \ \phi_{1}, \phi_{2}, \phi_{3}, ... , \phi_{m} \ $ homomorfismos distindos de um grupo $ \ \mathbb{G} \ $ no grupo multiplicativo $ \ \mathbb{F}^{*} \ $ de um corpo harbitrário $ \ \mathbb{F} \ $, e sejam $ \ a_{1} , a_{2}, ... , a_{m} \ $ elementos de $ \ \mathbb{F} \ $ nem todos nulos. Então, para algum $ \ g \in \mathbb{G} \ $ nós temos $ \ \sum_{i=1}^{m} \ a_{i} \phi_{i} (g) \ \neq 0 \ $.
+      \label{LemaDeArtin}
+      \end{lema}
+      
+      % Demonstração
+      \begin{proof}
+      Procedemos por indução em $ \ m \ $. O caso $ \ m = 1 \ $ é trivial, assumimos que $ \ m > 1 \ $ e que a afirmação é verdadeira para qualquer coleção de $ \ m-1 \ $ homomorfismos distintos. Agora tome $ \ \phi_{1}, \phi_{2}, ... , \phi_{m} \ $ e $ \ a_{1}, a_{2}, ... , a_{m} \ $ como no enunciado. Se $ \ a_{1} = 0 \ $ a hipótese de indução nos traz o resultado procurado imediatamente. Logo, suponha $ \ a_{1} \neq 0 \ $. Assim, supondo que tivéssemos $ \ \sum_{i=1}^{m} \ a_{i} \phi_{i} (g) = 0 \ $ (*) para todo $ \ g \in \mathbb{G} \ $. Uma vez que $ \ \phi_{1} \neq \phi_{m} \ $, existiria $ \ h \in \mathbb{G} \ $ com $ \ \phi_{1} (h) \neq \phi_{m} (h) \ $. Então, subistituindo $ \ g \ $ por $ \ hg \ $, obteríamos $ \ \sum_{i=1}^{m} \ a_{i} \phi_{i} (g) = 0 \ $ para todo $ \ g \in \mathbb{G} \ $. Após multiplicarmos por $ \ {\phi_{m} (h)}^{-1} \ $ obteríamos $ \ \sum_{i=1}^{m} \ b_{i} \phi_{i} (g) = 0 \ $ para todo $ \ g \in \mathbb{G} \ $ onde $ \ b_{i} = a_{i} \phi_{i} (h) { \phi_{m} (h)}^{-1} \ $ para todo $ \ 1 \leq i \leq m-1 \ $. Subtraindo esta identidade de (*), chegaríamos em $ \ \sum_{i=1}^{m-1} \ c_{i} \phi_{i} (g) \ $ para todo $ \ g \in \mathbb{G} \ $ onde $ \ c_{i} = a_{i} - b_{i} \ $ para $ \ 1 \leq i \leq m-1 \ $. Mas $ \ c_{1} = a_{1} - a_{1} \phi_{1} (h) { \phi_{m} (h) }^{-1} \neq 0 \ $ e finalmente chegaríamos na condição da hipótese de indução, o que conclui a demonstração.
+      \end{proof}
+      
+      % Lema: T tem vetor cíclico <=> min(T)=car(T)
+      \begin{lema}[\textcolor{green}{Critério para existir vetor cíclico}]
+      Seja $ \ T \ $ um operador linear sobre o espaço vetorial de dimensão finita $ \ V \ $. Então $ \ T \ $ tem um vetor cíclico se, e somente se, os polinômios característico e minimal de $ \ T \ $ são idênticos.
+      \label{CriterioVetorCiclico}
+      \end{lema}
+      
+      % Teorema: Da Base Normal
+      \begin{teo}[\textcolor{green}{Teorema da Base Normal}]
+      Para todo corpo finito $ \ \mathbb{K} \ $ e toda extensão finita $ \ \mathbb{F} \ $ de $ \ \mathbb{K} \ $, existe uma base normal de $ \ \mathbb{F} \ $ sobre $ \ \mathbb{K} \ $.
+      \end{teo}
+      
+      % Demonstração
+      \begin{proof}
+      Sejam $ \ \mathbb{K} = \mathbb{F}_{q} \ $ e $ \ \mathbb{F} = \mathbb{F}_{q^{m}} \ $ com $ \ m \geq 2 \ $. Do Teorema \ref{DistintosAutomorfismosEntreCorposFinitos} e das considerações após ele, sabemos que os distintos automorfismos de $ \ \mathbb{F} \ $ sobre $ \ \mathbb{K} \ $ são dados por $ \ \epsilon, \sigma, \sigma^{2}, ... , \sigma^{m-1} \ $, onde $ \ \epsilon \ $ é a função identidade em $ \ \mathbb{F} \ $, $ \ \sigma(\alpha) = \alpha^{q} \ $ para todo $ \ \alpha \in \mathbb{F} \ $, e uma potência $ \ \sigma^{j} \ $ refere-se a j-ésima composição de $ \ \sigma \ $ consigo mesma. Uma vez que $ \ \sigma(\alpha + \beta) = \sigma(\alpha) + \sigma(\beta) \ $  e $ \ \sigma(c\alpha) = \sigma(c)\sigma(\alpha) = c\sigma(\alpha) \ $ para todo $ \ \alpha, \beta \in \mathbb{F} \ $ e $ \ c \in \mathbb{K} \ $, a função $ \ \sigma \ $ também pode ser considarada um operador linear no espaço vetorial $ \ \mathbb{F} \ $ sobre $ \ \mathbb{K} \ $. Uma vez que $ \ \sigma^{m} = \epsilon \ $, o polinômio $ \ x^{m}-1 \in \mathbb{K}[x] \ $ aniquila $ \ \sigma \ $. O Lema \ref{LemaDeArtin} aplicado a $ \ \epsilon, \sigma, \sigma^{q}, ... , \sigma^{q^{m-1}} \ $ vistos como endomorfismos de $ \ \mathbb{F}^{*} \ $ mostra que, polinômios não nulos de $ \ \mathbb{K}[x] \ $ de grau menor do que $ \ m \ $ aniquila $ \ \sigma \ $. Consequentemente, o polinômio $ \ x^{m}-1 \ $ é o polinômio minimal para o operador linear $ \ \sigma \ $. Uma vez que o polinômio característico de $ \ \sigma \ $ é um polinômio mônico de grau $ \ m \ $ que é múltiplo do polinômio minimal de $ \ \sigma \ $, segue que o polinômio característico de $ \ \sigma \ $ também é dado por $ \ x^{m}-1 \ $. O lema \ref{CriterioVetorCiclico} implica então a existência de um elemento $ \ \alpha \in \mathbb{F} \ $ tal que $ \ \alpha, \sigma(\alpha), \sigma^{2}(\alpha), ... \ $ gera o espaço vetorial $ \ \mathbb{F} \ $. Descartando os elementos repetidos, vemos que $ \ \alpha, \sigma(\alpha), \sigma^{2}(\alpha), ... , \sigma^{m-1}(\alpha) \ $ gera $ \ \mathbb{F} \ $ e consequentemente forma uma base de $ \ \mathbb{F} \ $ sobre $ \ \mathbb{K} \ $. Uma vez que esta base consiste $ \ \alpha \ $ e seus conjugados com relação a $ \ \mathbb{K} \ $, segue que esta é uma base normal de $ \ \mathbb{F} \ $ sobre $ \ \mathbb{K} \ $.
+      \end{proof}
+      
+      % Fim da subseção ----------
+
+  % Página de referências
+  \pagenumbering{gobble} % Aborta a paginação
+  \bibliographystyle{ieeetr} % Configura a forma como vai aparecer as referências
+  \bibliography{referencia} % Acessa o arquivo remoto referencia.bib
+  \thispagestyle{empty} % Elimina estilo padrão da página de referências
 
 \end{document}
