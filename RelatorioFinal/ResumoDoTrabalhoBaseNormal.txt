@@ -1,0 +1,43 @@
+critério para existir vetor cíclico (SEM) (OK)
+dois polinômios irredutíveis, mesmo corpo de raízes (SEM) (OK)
+alfa primitivo, seus conjugados também são (SEM) (OK)
+
+----> Resumo do trabalho
+--- Caracterização dos corpos finitos
+- CORPO
+- CORPO FINITO
+- qnt elementos
+- SOnho dos estudantes
+- a^q = a
+- Exist e é único os corpos finitos
+- Sobre os subcorpos
+- Grupo multiplicativo é cíclico
+- ELEMENTO PRIMITIVO
+
+---- Raízes de polis. irredutíveis
+- Divisibilidade vs Inclusão de raízes
+- Relação entre os irred. e o poli. 
+- Raízes são os conjugados
+- Fq^m é o corpo de decomposição de f irred. de grau m
+- Dois polis irred. mesmo corpo de decomposição
+
+- CONJUGADOS
+- Conjugados tem mesma ordem no grupo multiplicativo
+- alfa primitivo, seus conjugados tbm
+- Automorfismos dos corpos finitos
+
+--- Traços normas e Bases
+- TRAÇO
+- Propriedades do traço
+- Transformações lineares entre corpos finitos
+- Transitividade do traço
+
+- NORMA
+- Proprieades da norma
+- Transitividade da norma
+
+- BASE NORMAL
+- Lema de Artin
+- Critério do vetor cíclico
+- Teorema da base normal
+- ELEMENTO NORMAL
