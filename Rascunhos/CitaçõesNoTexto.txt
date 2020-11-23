@@ -1,0 +1,10 @@
+--- Textos bases
+\cite[Finite fields]{finite-fields-1997}
+\cite[Abstract algebra]{abstract-algebra-2007}
+\cite[Tópicos de álgebra]{topicos-de-algebra-1970}
+
+--- Artigos para expandir os conhecimentos
+\cite{article-1987}
+\cite{article-2014}
+\cite{article-2017}
+\cite{article-2018}
